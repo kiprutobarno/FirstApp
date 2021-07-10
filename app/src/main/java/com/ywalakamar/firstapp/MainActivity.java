@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,31 +16,25 @@ import com.ywalakamar.firstapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-//    private AppBarConfiguration appBarConfiguration;
-//    private ActivityMainBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
-//
-//        setSupportActionBar(binding.toolbar);
         setContentView(R.layout.activity_main);
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab=findViewById(R.id.fab);
 
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-//        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                TextView textValue=findViewById(R.id.text_value);
+                String stringValue=textValue.getText().toString();
+                int originalValue=Integer.parseInt(stringValue);
+                int newValue=MyWorker.doubleTheValue(originalValue);
+                textValue.setText(Integer.toString(newValue));
+                Snackbar.make(view, "Changed value "+originalValue+" to "+newValue , Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -66,11 +61,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-//    @Override
-//    public boolean onSupportNavigateUp() {
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-//        return NavigationUI.navigateUp(navController, appBarConfiguration)
-//                || super.onSupportNavigateUp();
-//    }
 }
